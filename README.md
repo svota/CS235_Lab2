@@ -2,14 +2,18 @@
 ## Purpose
 To become familiar with the use of stacks as data structures.
 
-A short video has been created for this lab which you may find very helpful.  You can watch it here.
-Background
+A short video has been created for this lab which you may find very helpful.  You can watch it 
+[here](https://youtu.be/HJOnJU77EUs).
+
+## Background
 Develop an Expression Manager that performs several operations on infix and postfix expressions. Be able to convert from one form to the other, evaluate postfix expressions, and check for balanced parenthetical expressions.
 
 You may also refer to Edsger Dijkstra's "Shunting-yard algorithm" for additional help, which can be viewed 
-[here](https://youtu.be/HJOnJU77EUs).
+[here](https://en.wikipedia.org/wiki/Shunting-yard_algorithm).
 
-##Requirements
+
+
+## Requirements
 Details for method constraints are found in these documents and are still a part of the requirements.
 
 You will need the files in this git repository to complete this assignment.
@@ -45,3 +49,4 @@ Extend the ExpressionManagerInterface.h.
 * You can assume there will be a space between every number or operator
 * You must put parenthesis '()' around every part of the expression during the postfix to infix conversion. i.e. "4 2 5 + *" = "( 4 * ( 2 + 5 ) )"
 * You must use the stack class pre-defined in the C++ Standard Template Library (STL). i.e. #include <stack>
+* You can use the examples in this git repository 
