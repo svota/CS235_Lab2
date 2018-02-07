@@ -19,7 +19,7 @@ Details for method constraints are found in these documents and are still a part
 You will need the files in this git repository to complete this assignment.
 Extend the ExpressionManagerInterface.h.
 
-### File 1 - Balanced Symbols Check (18 points)
+### File 1 - Balanced Symbols Check (20 points)
 * Determine whether an expression is balanced. { [ } ] is not balanced. [ ( ) ] is balanced and valid
 
 ### File 2 - Postfix Expression Evaluation (20 points)
@@ -27,18 +27,13 @@ Extend the ExpressionManagerInterface.h.
 * Evaluate the given postfix expression
 * Handle attempts to divide by 0
 
-### File 3 - Postfix to Infix Conversion (20 points)
+### File 3 - Postfix to Infix Conversion (30 points)
 * Determine if the given postfix expression is syntactically valid
 * Convert the postfix expression into an infix expression
 
-### File 4 - Infix to Postfix Conversion (20 points)
+### File 4 - Infix to Postfix Conversion (30 points)
 * Determine if the given infix expression is syntactically valid
 * Convert the infix expression into a postfix expression
-
-### File 5 - Invalid Edge Cases  (12 points Pass/Fail)
-* Run and pass Valgrind on your program to ensure that you have no memory leaks.
-* Valgrind  (10 points Pass/Fail)
-* Run and pass Valgrind on your program to ensure that you have no memory leaks.
 
 ## Requirement Notes
 * You are required to create a seperate '.cpp' and '.h' for each class you implement for this lab.
