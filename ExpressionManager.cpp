@@ -133,6 +133,9 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       left = expression.top();
       expression.pop();
       nextInt = performCalculation(left, right, tokens.at(i));
+      if(nextInt == NULL) {
+        return "invalid";
+      }
       cout << "Performing calculation: " << left << tokens.at(i) << right << endl;
       expression.push(nextInt);
       cout << "Pushing calculated int: " << nextInt << endl;
@@ -212,6 +215,9 @@ int ExpressionManager::performCalculation(int left, int right, string oper) {
   }
   else if(oper == "*") {
     returnInt = left * right;
+  }
+  else if(right == 0) {
+    return NULL;
   }
   else if(oper == "/") {
     returnInt = left / right;
