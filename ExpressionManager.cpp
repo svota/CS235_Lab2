@@ -127,9 +127,6 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       left = expression.top();
       expression.pop();
       nextInt = performCalculation(left, right, *itr);
-      if(!isInt(nextInt)) {
-        return "ERROR";
-      }
       expression.push(nextInt);
     }
     else {
