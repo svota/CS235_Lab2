@@ -106,7 +106,6 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
   int nextInt;
   int right;
   int left;
-  stringstream ss;
   stack<int> expression;
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
@@ -114,6 +113,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
 
   for(int i = 0; i < tokens.size(); ++i) {
     if(isInt(tokens.at(i))) {
+      stringstream ss;
       ss.str(tokens.at(i));
       ss >> nextInt;
       expression.push(nextInt);
@@ -143,6 +143,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     }
   }
   if(expression.size() == 1) {
+    stringstream ss;
     ss << expression.top();
     returnStr = ss.str();
     return returnStr;   
