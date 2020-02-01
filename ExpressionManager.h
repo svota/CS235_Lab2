@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
 #include <stack>
 #include "ExpressionManagerInterface.h"
 
@@ -68,4 +69,6 @@ private:
   */
   vector<string> parseTokens(string expression);
 
+  // Checks if a string is an operator
+  bool isOperator(string exp);
 };

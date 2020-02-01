@@ -1,6 +1,7 @@
 #include "ExpressionManager.h"
 #include <stack>
 #include <string>
+#include <vector>
 #include <sstream>
 
 using namespace std;
