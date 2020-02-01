@@ -64,21 +64,21 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
   stack<string> expression;
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
-  for(iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isdigit(*itr->at(0)) {
-      tokens.push(*itr);
+  for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+    if(isdigit(*itr->at(0))) {
+      expression.push(*itr);
     }
     else if(isOperator(*itr)) {
-      string rightExp = tokens.top();
-      tokens.pop();
-      string leftExp = tokens.top();
-      tokens.pop();
+      string rightExp = expression.top();
+      expression.pop();
+      string leftExp = expression.top();
+      expression.pop();
       string newExp = "(" + leftExp + " " + *itr + " " + rightExp + ")";
-      tokens.push(newExp);
+      expression.push(newExp);
     }
   }
-  if(tokens.size() == 1) {
-    return tokens.top();
+  if(expression.size() == 1) {
+    return expression.top();
   }
   else {
     return "Error";
@@ -100,8 +100,8 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
   stack<char> expression;
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
-  for(iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isdigit(*itr->at(0)) {
+  for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+    if(isdigit(*itr->at(0))) {
       stringstream ss;
       int nextint
       ss.str(*itr);
