@@ -16,9 +16,9 @@ using namespace std;
 */
 
 bool ExpressionManager::isBalanced(string expression) {
-  stack <char> checker;
+  stack<string> checker;
   for(int i = 0; i < expression.size(); ++i) {
-    char tester = expression.at(i);
+    string tester = expression.at(i);
     if(isLeftParen(tester)) {
       checker.push(tester);
     }
