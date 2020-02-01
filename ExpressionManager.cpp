@@ -116,21 +116,21 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     if(isInt(*itr)) {
       ss.str(*itr);
       ss >> nextInt;
-      operands.push(nextInt);
+      expression.push(nextInt);
     }
     else if(isOperator(*itr)) {
       if(expression.size() <= 2) {
         return "invalid";
       }
-      right = expressions.top();
-      expressions.pop();
-      left = expressions.top();
-      expressions.pop();
+      right = expression.top();
+      expression.pop();
+      left = expression.top();
+      expression.pop();
       nextInt = performCalculation(left, right, *itr);
       if(!isInt(nextInt)) {
         return "ERROR";
       }
-      operands.push(nextInt);
+      expression.push(nextInt);
     }
     else {
       return "invalid";
