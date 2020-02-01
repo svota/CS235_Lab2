@@ -11,7 +11,7 @@
 * @return false otherwise
 */
 
-bool isBalanced(string expression) {
+bool ExpressionManager::isBalanced(string expression) {
   stack <char> checker;
   for(int i = 0; i < expression.size(); ++i) {
     char tester = expression.at(i);
@@ -49,8 +49,12 @@ bool isBalanced(string expression) {
 * return the string "invalid" if postfixExpression is not a valid postfix expression.
 * otherwise, return the correct infix expression as a string.
 */
-string postfixToInfix(string postfixExpression) {
+string ExpressionManager::postfixToInfix(string postfixExpression) {
   stack <char> 
+  cout << "PostfixToInfix " << postfixExpression << endl;
+  return "true"
+}
+}
 
 /*
 * Evaluates a postfix expression returns the result as a string
@@ -61,7 +65,10 @@ string postfixToInfix(string postfixExpression) {
 * return the string "invalid" if postfixExpression is not a valid postfix Expression
 * otherwise, return the correct evaluation as a string
 */
-string postfixEvaluate(string postfixExpression);
+string ExpressionManager::postfixEvaluate(string postfixExpression);
+  cout << "PostfixEvaluate " << postfixExpression << endl;
+  return "true"
+}
 
 /*
 * Converts an infix expression into a postfix expression
@@ -74,4 +81,7 @@ string postfixEvaluate(string postfixExpression);
 * return the string "invalid" if infixExpression is not a valid infix expression.
 * otherwise, return the correct postfix expression as a string.
 */
-string infixToPostfix(string infixExpression);
+string ExpressionManager::infixToPostfix(string infixExpression) {
+  cout << "InfixToPostFix " << infixExpression << endl;
+  return "true"
+}
