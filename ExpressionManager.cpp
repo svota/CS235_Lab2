@@ -2,6 +2,8 @@
 #include <stack>
 #include <string>
 
+using namespace std;
+
 /*
 * Checks whether an expression is balanced on its parentheses
 *
@@ -51,7 +53,7 @@ bool ExpressionManager::isBalanced(string expression) {
 */
 string ExpressionManager::postfixToInfix(string postfixExpression) {
   cout << "PostfixToInfix " << postfixExpression << endl;
-  return "true"
+  return "true";
 }
 
 
@@ -66,7 +68,7 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
 */
 string ExpressionManager::postfixEvaluate(string postfixExpression);
   cout << "PostfixEvaluate " << postfixExpression << endl;
-  return "true"
+  return "true";
 }
 
 /*
@@ -82,5 +84,5 @@ string ExpressionManager::postfixEvaluate(string postfixExpression);
 */
 string ExpressionManager::infixToPostfix(string infixExpression) {
   cout << "InfixToPostFix " << infixExpression << endl;
-  return "true"
+  return "true";
 }
