@@ -71,4 +71,7 @@ private:
 
   // Checks if a string is an operator
   bool isOperator(string exp);
+
+  // Checks if a string is a set of digits (an int)
+  bool isInt(strin exp);
 };

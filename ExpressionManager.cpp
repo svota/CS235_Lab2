@@ -65,22 +65,22 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
   for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isdigit(itr->at(0))) {
+    if(isOperand(*itr)) {
       expression.push(*itr);
     }
-    else if(isOperator(*itr)) {
-      if(expression.empty()) {
+    else if(isInt(*itr)) {
+      if(expression.size() <= 2) {
         return "invalid";
       }
       string rightExp = expression.top();
       expression.pop();
-      if(expression.empty()) {
-        return "invalid";
-      }
       string leftExp = expression.top();
       expression.pop();
       string newExp = "( " + leftExp + " " + *itr + " " + rightExp + " )";
       expression.push(newExp);
+    }
+    else {
+      return "invalid";
     }
   }
   if(expression.size() == 1) {
@@ -158,4 +158,13 @@ bool ExpressionManager::isOperator(string exp) {
   else {
     return false;
   }
+}
+
+bool ExpressionManager::isInt(string exp) {
+  for(int i = 0; i < exp.size(); ++i) {
+    if(!isdigit(exp.at(i)) {
+      return false;
+    }
+  }
+  return true;
 }
