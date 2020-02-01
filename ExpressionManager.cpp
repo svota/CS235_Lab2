@@ -213,8 +213,8 @@ vector<string> ExpressionManager::parseTokens(string expression)
 
 bool ExpressionManager::isOperator(string exp) {
   if(exp == "+" || exp == "-" || 
-      exp == "*" || exp == "/" || exp == "%" 
-      exp == "(" || exp == ")" || exp == "[" 
+      exp == "*" || exp == "/" || exp == "%" ||
+      exp == "(" || exp == ")" || exp == "[" ||
       exp == "]" || exp == "{" || exp == "}") {
     return true;
   }
