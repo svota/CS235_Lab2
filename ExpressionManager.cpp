@@ -69,11 +69,17 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
       expression.push(*itr);
     }
     else if(isOperator(*itr)) {
+      if(expression.isempty()) {
+        return "invalid"
+      }
       string rightExp = expression.top();
       expression.pop();
+      if(expression.isempty()) {
+        return "invalid"
+      }
       string leftExp = expression.top();
       expression.pop();
-      string newExp = "(" + leftExp + " " + *itr + " " + rightExp + ")";
+      string newExp = "( " + leftExp + " " + *itr + " " + rightExp + " )";
       expression.push(newExp);
     }
   }
@@ -81,7 +87,7 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
     return expression.top();
   }
   else {
-    return "Error";
+    return "invalid";
   }
 }
 
