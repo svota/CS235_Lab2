@@ -317,7 +317,7 @@ bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix
     return true;
   }
   else {
-    while(precedence(op) <= precedence(opStack.top)) {
+    while(precedence(op) <= precedence(opStack.top())) {
       postfix += opStack.top() + " ";
       opStack.pop();
     }
