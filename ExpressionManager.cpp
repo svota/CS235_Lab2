@@ -260,23 +260,23 @@ int ExpressionManager::performCalculation(int left, int right, string oper) {
 }
 
 bool ExpressionManager::isLeftParen(string t) {
-  if(t == '(' || t == '[' || t == '{') {
+  if(t == "(" || t == "[" || t == "{") {
     return true;
   }
   return false;
 }
 
 bool ExpressionManager::isRightParen(string t) {
-  if(t == ')' || t == ']' || t == '}') {
+  if(t == ")" || t == "]" || t == "}") {
     return true;
   }
   return false;
 }
 
 bool ExpressionManager::isPair(string left, string right) {
-  if(left == '(' && right == ')' ||
-      left == '[' && right == ']' ||
-      left == '{' && right == '}') {
+  if(left == "(" && right == ")" ||
+      left == "[" && right == "]" ||
+      left == "{" && right == "}") {
     return true;
   }
   return false;
