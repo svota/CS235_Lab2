@@ -26,7 +26,7 @@ bool ExpressionManager::isBalanced(string expression) {
       if(checker.empty()) {
         return false;
       }
-      else if(!isPair(checker.top(), tester) {
+      else if(!isPair(checker.top(), tester)) {
         return false;
       }
       else {
