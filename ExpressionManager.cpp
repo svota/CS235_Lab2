@@ -1,6 +1,7 @@
 #include "ExpressionManager.h"
 #include <stack>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -17,34 +18,27 @@ bool ExpressionManager::isBalanced(string expression) {
   stack <char> checker;
   for(int i = 0; i < expression.size(); ++i) {
     char tester = expression.at(i);
-    cout << "loop number " << i << " testing " << expression.at(i) << endl;
     if(tester == '(' || tester == '[' || tester == '{') {
       checker.push(tester);
-      cout << "    pushed" << endl;
     }
     else if(tester == ')' || tester == ']' || tester == '}') {
       if(checker.empty()) {
-        cout << "     False: close paren on empty stack" << endl;
         return false;
       }
       else if(checker.top() == '(' && tester != ')' ||
           checker.top() == '[' && tester != ']' ||
           checker.top() == '{' && tester != '}') {
-        cout << "     False: paren does not match" << endl;
         return false;
       }
       else {
         checker.pop();
-        cout << "  Removing top of stack: parenthesis match" << endl;
       }
     }
   }
   if(checker.empty()) {
-    cout << "True: All paren match" << endl;
     return true;
   }
   else {
-    cout << "False: extra open paren" << endl;
     return false;
   }
 }
@@ -66,7 +60,28 @@ bool ExpressionManager::isBalanced(string expression) {
 */
 string ExpressionManager::postfixToInfix(string postfixExpression) {
   cout << "PostfixToInfix " << postfixExpression << endl;
-  return "true";
+  stack<string> expression;
+  vector<string> tokens;
+  tokens = parseTokens(postfixExpression);
+  for(iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+    if(isdigit(*itr->at(0)) {
+      tokens.push(*itr);
+    }
+    else if(isOperator(*itr)) {
+      string rightExp = tokens.top();
+      tokens.pop();
+      string leftExp = tokens.top();
+      tokens.pop();
+      string newExp = "(" + leftExp + " " + *itr + " " + rightExp + ")";
+      tokens.push(newExp);
+    }
+  }
+  if(tokens.size() == 1) {
+    return tokens.top();
+  }
+  else {
+    return "Error";
+  }
 }
 
 
@@ -81,6 +96,21 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
 */
 string ExpressionManager::postfixEvaluate(string postfixExpression) {
   cout << "PostfixEvaluate " << postfixExpression << endl;
+  stack<char> expression;
+  vector<string> tokens;
+  tokens = parseTokens(postfixExpression);
+  for(iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+    if(isdigit(*itr->at(0)) {
+      stringstream ss;
+      int nextint
+      ss.str(*itr);
+      ss >> nextint;
+      operands.push(nextint);
+    }
+    else if(isOperator(*itr)) {
+    // continue here
+      cout << "is operator" << endl;
+    }
   return "true";
 }
 
@@ -98,4 +128,26 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
 string ExpressionManager::infixToPostfix(string infixExpression) {
   cout << "InfixToPostFix " << infixExpression << endl;
   return "true";
+}
+
+vector<string> ExpressionManager::parseTokens(string expression)
+{
+  stringstream ss(expression);
+  string token;
+  vector<string> tokens;
+  while(getline(ss, token, ' '))
+  {
+    tokens.push_back(token);
+  }
+  return tokens;
+}
+
+bool ExpressionManager::isOperator(string exp) {
+  if(exp == "+" || exp == "-" || 
+      exp == "*" || exp == "/" || exp == "%") {
+    return true;
+  }
+  else {
+    return false;
+  }
 }

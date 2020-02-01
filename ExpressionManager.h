@@ -62,4 +62,10 @@ public:
 	*/
 	string infixToPostfix(string infixExpression);
 
+private:
+  /*
+  * Converts a string into a vector of tokens
+  */
+  vector<string> parseTokens(string expression);
+
 };
