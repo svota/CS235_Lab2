@@ -120,6 +120,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     }
     else if(isOperator(*itr)) {
       if(expression.size() <= 2) {
+        cout << "Error: not enough operands" << endl;
         return "invalid";
       }
       right = expression.top();
@@ -130,6 +131,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       expression.push(nextInt);
     }
     else {
+      cout << "Error: not int or operator" << endl;
       return "invalid";
     }
   }
@@ -139,6 +141,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     return returnStr;   
   }
   else {
+    cout << "Error: not enough operators" << endl;
     return "invalid";
   }
 }
