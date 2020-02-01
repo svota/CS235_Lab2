@@ -65,10 +65,10 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
   for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isOperand(*itr)) {
+    if(isInt(*itr)) {
       expression.push(*itr);
     }
-    else if(isInt(*itr)) {
+    else if(isOperator(*itr)) {
       if(expression.size() <= 2) {
         return "invalid";
       }
