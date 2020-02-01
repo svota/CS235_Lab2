@@ -112,16 +112,16 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
   tokens = parseTokens(postfixExpression);
   string returnStr;
 
-  for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isInt(*itr)) {
-      ss.str(*itr);
+  for(int i = 0; i < tokens.size(); ++i) {
+    if(isInt(tokens.at(i))) {
+      ss.str(tokens.at(i));
       ss >> nextInt;
       expression.push(nextInt);
       cout << "Pushing " << nextInt << endl;
     }
-    else if(isOperator(*itr)) {
+    else if(isOperator(tokens.at(i))) {
       if(expression.size() <= 2) {
-        cout << "Error: not enough operands on token " << *itr << endl;
+        cout << "Error: not enough operands on token " << tokens.at(i) << endl;
         while(!expression.empty()) {
           cout << "Current stack top: " << expression.top() << endl;
           expression.pop();
@@ -132,13 +132,13 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       expression.pop();
       left = expression.top();
       expression.pop();
-      nextInt = performCalculation(left, right, *itr);
-      cout << "Performing calculation: " << left << *itr << right << endl;
+      nextInt = performCalculation(left, right, tokens.at(i));
+      cout << "Performing calculation: " << left << tokens.at(i) << right << endl;
       expression.push(nextInt);
       cout << "Pushing calculated int: " << nextInt << endl;
     }
     else {
-      cout << "Error: not int or operator - " << *itr << endl;
+      cout << "Error: not int or operator - " << tokens.at(i) << endl;
       return "invalid";
     }
   }
