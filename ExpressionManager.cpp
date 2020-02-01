@@ -65,7 +65,7 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
   for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isdigit(*itr->at(0))) {
+    if(isdigit(itr->at(0))) {
       expression.push(*itr);
     }
     else if(isOperator(*itr)) {
@@ -97,11 +97,11 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
 */
 string ExpressionManager::postfixEvaluate(string postfixExpression) {
   cout << "PostfixEvaluate " << postfixExpression << endl;
-  stack<char> expression;
+/*  stack<char> expression;
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
   for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isdigit(*itr->at(0))) {
+    if(isdigit(itr->at(0))) {
       stringstream ss;
       int nextint
       ss.str(*itr);
@@ -112,6 +112,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     // continue here
       cout << "is operator" << endl;
     }
+    */
   return "true";
 }
 
