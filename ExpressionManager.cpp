@@ -20,10 +20,11 @@ bool ExpressionManager::isBalanced(string expression) {
     if(tester == '(' || tester == '[' || tester == '{') {
       checker.push(tester);
     }
-
-    if(tester == ')' || tester == ']' || tester == '}') {
-      if(checker.empty() ||
-          checker.top() == '(' && tester != ')' ||
+    else if(tester == ')' || tester == ']' || tester == '}') {
+      if(checker.empty()) {
+        return false;
+      }
+      else if(checker.top() == '(' && tester != ')' ||
           checker.top() == '[' && tester != ']' ||
           checker.top() == '{' && tester != ']') {
         return false;
@@ -33,7 +34,12 @@ bool ExpressionManager::isBalanced(string expression) {
       }
     }
   }
-  return true;
+  if(checker.empty()) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
         
 
