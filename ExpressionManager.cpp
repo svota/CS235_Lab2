@@ -117,6 +117,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       ss.str(*itr);
       ss >> nextInt;
       expression.push(nextInt);
+      cout << "Pushing " << nextInt << endl;
     }
     else if(isOperator(*itr)) {
       if(expression.size() <= 2) {
@@ -132,7 +133,9 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       left = expression.top();
       expression.pop();
       nextInt = performCalculation(left, right, *itr);
+      cout << "Performing calculation: " << left << *itr << right << endl;
       expression.push(nextInt);
+      cout << "Pushing calculated int: " << nextInt << endl;
     }
     else {
       cout << "Error: not int or operator - " << *itr << endl;
