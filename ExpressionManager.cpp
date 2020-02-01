@@ -103,23 +103,47 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
 */
 string ExpressionManager::postfixEvaluate(string postfixExpression) {
   cout << "PostfixEvaluate " << postfixExpression << endl;
-/*  stack<char> expression;
+  int nextInt;
+  int right;
+  int left;
+  stringstream ss;
+  stack<int> expression;
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
+  string returnStr;
+
   for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
-    if(isdigit(itr->at(0))) {
-      stringstream ss;
-      int nextint
+    if(isInt(*itr)) {
       ss.str(*itr);
-      ss >> nextint;
-      operands.push(nextint);
+      ss >> nextInt;
+      operands.push(nextInt);
     }
     else if(isOperator(*itr)) {
-    // continue here
-      cout << "is operator" << endl;
+      if(expression.size() <= 2) {
+        return "invalid";
+      }
+      right = expressions.top();
+      expressions.pop();
+      left = expressions.top();
+      expressions.pop();
+      nextInt = performCalculation(left, right, *itr);
+      if(!isInt(nextInt)) {
+        return "ERROR";
+      }
+      operands.push(nextInt);
     }
-    */
-  return "true";
+    else {
+      return "invalid";
+    }
+  }
+  if(expression.size() == 1) {
+    ss << expression.top();
+    returnStr = ss.str();
+    return returnStr;   
+  }
+  else {
+    return "invalid";
+  }
 }
 
 /*
@@ -167,4 +191,30 @@ bool ExpressionManager::isInt(string exp) {
     }
   }
   return true;
+}
+
+int ExpressionManager::performCalculation(int left, int right, string oper) {
+  int returnInt;
+
+  if(oper == "+") {
+    returnInt = left + right;
+  }
+  else if(oper == "-") {
+    returnInt = left - right;
+  }
+  else if(oper == "*") {
+    returnInt = left * right;
+  }
+  else if(oper == "/") {
+    returnInt = left / right;
+  }
+  else if(oper == "%") {
+    returnInt = left % right;
+  }
+  else {
+    cout << "ERROR in performCalculation" << endl;
+    return NULL;
+  }
+
+  return returnInt;
 }
