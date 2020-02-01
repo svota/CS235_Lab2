@@ -162,7 +162,7 @@ bool ExpressionManager::isOperator(string exp) {
 
 bool ExpressionManager::isInt(string exp) {
   for(int i = 0; i < exp.size(); ++i) {
-    if(!isdigit(exp.at(i)) {
+    if(!isdigit(exp.at(i))) {
       return false;
     }
   }
