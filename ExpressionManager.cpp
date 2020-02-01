@@ -121,6 +121,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     else if(isOperator(*itr)) {
       if(expression.size() <= 2) {
         cout << "Error: not enough operands on token " << *itr << endl;
+        cout << "Current stack top: " << expression.top() << endl;
         return "invalid";
       }
       right = expression.top();
