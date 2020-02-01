@@ -77,5 +77,5 @@ private:
 
   // Performs a calculation with two ints and a string for the operator.
   // Error if the operator is not supported
-  int ExpressionManager::performCalculation(int left, int right, string oper) {
+  int performCalculation(int left, int right, string oper);
 };
