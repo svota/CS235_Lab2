@@ -69,13 +69,13 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
       expression.push(*itr);
     }
     else if(isOperator(*itr)) {
-      if(expression.isempty()) {
-        return "invalid"
+      if(expression.empty()) {
+        return "invalid";
       }
       string rightExp = expression.top();
       expression.pop();
-      if(expression.isempty()) {
-        return "invalid"
+      if(expression.empty()) {
+        return "invalid";
       }
       string leftExp = expression.top();
       expression.pop();
