@@ -50,11 +50,10 @@ bool ExpressionManager::isBalanced(string expression) {
 * otherwise, return the correct infix expression as a string.
 */
 string ExpressionManager::postfixToInfix(string postfixExpression) {
-  stack <char> 
   cout << "PostfixToInfix " << postfixExpression << endl;
   return "true"
 }
-}
+
 
 /*
 * Evaluates a postfix expression returns the result as a string
