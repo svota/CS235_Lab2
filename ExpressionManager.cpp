@@ -17,28 +17,34 @@ bool ExpressionManager::isBalanced(string expression) {
   stack <char> checker;
   for(int i = 0; i < expression.size(); ++i) {
     char tester = expression.at(i);
-    cout << "loop number " << i << endl;
+    cout << "loop number " << i << " testing " expression.at(i) << endl;
     if(tester == '(' || tester == '[' || tester == '{') {
       checker.push(tester);
+      cout << "    pushed" << endl;
     }
     else if(tester == ')' || tester == ']' || tester == '}') {
       if(checker.empty()) {
+        cout << "     False: close paren on empty stack" << endl;
         return false;
       }
       else if(checker.top() == '(' && tester != ')' ||
           checker.top() == '[' && tester != ']' ||
           checker.top() == '{' && tester != ']') {
+        cout << "     False: paren does not match" << endl;
         return false;
       }
       else {
         checker.pop();
+        cout << "  Removing top of stack: parenthesis match" << endl;
       }
     }
   }
   if(checker.empty()) {
+    cout << "True: All paren match" << endl;
     return true;
   }
   else {
+    cout << "False: extra open paren" << endl;
     return false;
   }
 }
