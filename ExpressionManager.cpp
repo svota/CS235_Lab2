@@ -175,6 +175,7 @@ string ExpressionManager::infixToPostfix(string infixExpression) {
   vector<string> tokens = parseTokens(infixExpression);
 
   if(!isBalanced(infixExpression)) {
+    cout << "Error expression not balanced" << endl;
     return "invalid";
   }
 
@@ -186,15 +187,18 @@ string ExpressionManager::infixToPostfix(string infixExpression) {
     else if(isOperator(*itr)) {
       if(!process_operator(operators, postfix, *itr)) {
         return "invalid";
+    cout << "Error process_operator failed" << endl;
       }
     }
     else {
       return "invalid";
+    cout << "Error invalid token" << endl;
     }
   }
   postfix.pop_back();
   if(postfixEvaluate(postfix) == "invalid") {
     return "invalid";
+    cout << "Error invalid final expression" << endl;
   }
   return postfix;
 }
