@@ -17,7 +17,7 @@ bool ExpressionManager::isBalanced(string expression) {
   stack <char> checker;
   for(int i = 0; i < expression.size(); ++i) {
     char tester = expression.at(i);
-    cout << "loop number " << i << " testing " expression.at(i) << endl;
+    cout << "loop number " << i << " testing " << expression.at(i) << endl;
     if(tester == '(' || tester == '[' || tester == '{') {
       checker.push(tester);
       cout << "    pushed" << endl;
