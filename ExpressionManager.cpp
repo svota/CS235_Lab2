@@ -29,7 +29,7 @@ bool ExpressionManager::isBalanced(string expression) {
       }
       else if(checker.top() == '(' && tester != ')' ||
           checker.top() == '[' && tester != ']' ||
-          checker.top() == '{' && tester != ']') {
+          checker.top() == '{' && tester != '}') {
         cout << "     False: paren does not match" << endl;
         return false;
       }
