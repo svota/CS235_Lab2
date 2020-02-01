@@ -18,7 +18,8 @@ using namespace std;
 bool ExpressionManager::isBalanced(string expression) {
   stack<string> checker;
   for(int i = 0; i < expression.size(); ++i) {
-    string tester = expression.at(i);
+    string tester;
+    tester += expression.at(i);
     if(isLeftParen(tester)) {
       checker.push(tester);
     }
@@ -33,6 +34,7 @@ bool ExpressionManager::isBalanced(string expression) {
         checker.pop();
       }
     }
+    tester = "";
   }
   if(checker.empty()) {
     return true;
@@ -176,7 +178,7 @@ string ExpressionManager::infixToPostfix(string infixExpression) {
     return "invalid";
   }
 
-  for(vector<int>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+  for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
     if(isInt(*itr)) {
       postfix += *itr;
       postfix += " ";
