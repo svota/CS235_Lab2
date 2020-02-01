@@ -66,7 +66,7 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
 * return the string "invalid" if postfixExpression is not a valid postfix Expression
 * otherwise, return the correct evaluation as a string
 */
-string ExpressionManager::postfixEvaluate(string postfixExpression);
+string ExpressionManager::postfixEvaluate(string postfixExpression) {
   cout << "PostfixEvaluate " << postfixExpression << endl;
   return "true";
 }
