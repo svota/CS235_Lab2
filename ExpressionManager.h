@@ -78,4 +78,19 @@ private:
   // Performs a calculation with two ints and a string for the operator.
   // Error if the operator is not supported
   int performCalculation(int left, int right, string oper);
+
+  // Checks if a string is a left parenthesis
+  bool isLeftParen(string t);
+
+  // Checks if a string is a right parenthesis
+  bool isRightParen(string t);
+
+  // Checks that the strings form a pair of parentheses
+  bool isPair(string left, string right);
+  
+  // Returns the numeric precedence of an operator
+  int precedence(string oper);
+
+  // Processes operators for infix to postfix conversion
+  bool process_operator(stack<string> &opStack, string &postfix, string &op);
 };

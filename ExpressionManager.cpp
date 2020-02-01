@@ -19,16 +19,14 @@ bool ExpressionManager::isBalanced(string expression) {
   stack <char> checker;
   for(int i = 0; i < expression.size(); ++i) {
     char tester = expression.at(i);
-    if(tester == '(' || tester == '[' || tester == '{') {
+    if(isLeftParen(tester)) {
       checker.push(tester);
     }
-    else if(tester == ')' || tester == ']' || tester == '}') {
+    else if(isRightParen(tester)) {
       if(checker.empty()) {
         return false;
       }
-      else if(checker.top() == '(' && tester != ')' ||
-          checker.top() == '[' && tester != ']' ||
-          checker.top() == '{' && tester != '}') {
+      else if(!isPair(checker.top(), tester) {
         return false;
       }
       else {
@@ -170,7 +168,33 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
 */
 string ExpressionManager::infixToPostfix(string infixExpression) {
   cout << "InfixToPostFix " << infixExpression << endl;
-  return "true";
+  string postfix;
+  stack<string> operators;
+  vector<string> tokens = parseTokens(infixExpression);
+
+  if(!isBalanced(infixExpression)) {
+    return "invalid";
+  }
+
+  for(vector<int>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+    if(isInt(*itr)) {
+      postfix += *itr;
+      postfix += " ";
+    }
+    else if(isOperator(*itr)) {
+      if(!process_operator(operators, postfix, *itr)) {
+        return "invalid";
+      }
+    }
+    else {
+      return "invalid";
+    }
+  }
+  postfix.pop_back();
+  if(postfixEvaluate(postfix) == "invalid") {
+    return "invalid";
+  }
+  return postfix;
 }
 
 vector<string> ExpressionManager::parseTokens(string expression)
@@ -187,7 +211,9 @@ vector<string> ExpressionManager::parseTokens(string expression)
 
 bool ExpressionManager::isOperator(string exp) {
   if(exp == "+" || exp == "-" || 
-      exp == "*" || exp == "/" || exp == "%") {
+      exp == "*" || exp == "/" || exp == "%" 
+      exp == "(" || exp == ")" || exp == "[" 
+      exp == "]" || exp == "{" || exp == "}") {
     return true;
   }
   else {
@@ -231,4 +257,72 @@ int ExpressionManager::performCalculation(int left, int right, string oper) {
   }
 
   return returnInt;
+}
+
+bool ExpressionManager::isLeftParen(string t) {
+  if(t == '(' || t == '[' || t == '{') {
+    return true;
+  }
+  return false;
+}
+
+bool ExpressionManager::isRightParen(string t) {
+  if(t == ')' || t == ']' || t == '}') {
+    return true;
+  }
+  return false;
+}
+
+bool ExpressionManager::isPair(string left, string right) {
+  if(left == '(' && right == ')' ||
+      left == '[' && right == ']' ||
+      left == '{' && right == '}') {
+    return true;
+  }
+  return false;
+}
+
+int ExpressionManager::precedence(string oper) {
+  if(oper == ")" || oper == "]" || oper == "}") {
+    return 3;
+  }
+  else if(oper == "*" || oper == "/" || oper == "%") {
+    return 2;
+  }
+  else if(oper == "+" || oper == "-") {
+    return 1;
+  }
+  else if(oper == "(" || oper == "[" || oper == "{") {
+    return 0;
+  }
+  else {
+    return -1;
+  }
+}
+
+bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
+  if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
+    opStack.push(op);
+    return true;
+  }
+  else if(isRightParen(op)) {
+    while(!isPair(opStack.top(), op)) {
+      postfix += opStack.top() + " ";
+      opStack.pop();
+      if(opStack.empty()) {
+        return false;
+      }
+    }
+    opStack.pop();
+    return true;
+  }
+  else {
+    while(precedence(op) <= precedence(opStack.top)) {
+      postfix += opStack.top() + " ";
+      opStack.pop();
+    }
+    postfix += opStack.top();
+    opStack.pop();
+    return true;
+  }
 }
