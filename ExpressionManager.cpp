@@ -69,7 +69,7 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
       expression.push(*itr);
     }
     else if(isOperator(*itr)) {
-      if(expression.size() <= 2) {
+      if(expression.size() < 2) {
         return "invalid";
       }
       string rightExp = expression.top();
@@ -120,7 +120,7 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       cout << "Pushing " << nextInt << endl;
     }
     else if(isOperator(tokens.at(i))) {
-      if(expression.size() <= 2) {
+      if(expression.size() < 2) {
         cout << "Error: not enough operands on token " << tokens.at(i) << endl;
         while(!expression.empty()) {
           cout << "Current stack top: " << expression.top() << endl;
