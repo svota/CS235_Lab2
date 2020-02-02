@@ -202,7 +202,9 @@ cout << " Error invalid token" << endl;
     postfix += operators.top() + " ";
 cout << " added operator " << operators.top() << endl;
 cout << " current postfix: " << postfix << endl;
-    operators.pop();
+    if(!operators.empty()) {
+      operators.pop();
+    }
   }
   // (with a space following each except for the last)
   postfix.pop_back();
@@ -234,7 +236,9 @@ cout << " In process_operator" << endl;
       cout << "   top of stack: " << opStack.top() << endl;
       postfix += opStack.top() + " ";
       cout << "   Current postfix: \"" << postfix << "\"" << endl;
-      opStack.pop();
+      if(!opStack.empty()) {
+        opStack.pop();
+      }
       // if operator stack becomes empty without finding a matching parenthesis, return false
       if(opStack.empty()) {
         cout << "   empty stack too early" << endl;
@@ -243,7 +247,9 @@ cout << " In process_operator" << endl;
     }
     // pop off the matching opening parenthesis
     if(isPair(opStack.top(), op)) {
-      opStack.pop();
+      if(!opStack.empty()) {
+        opStack.pop();
+      }
       cout << "   Pair found." << endl;
       cout << "   Current postfix: \"" << postfix << "\"" << endl;
       // return true
@@ -255,7 +261,9 @@ cout << " In process_operator" << endl;
     while(precedence(op) <= precedence(opStack.top())) {
 cout << "   pushed current opStack.top(): " << opStack.top() << endl;
       postfix += opStack.top() + " ";
-      opStack.pop();
+      if(!opStack.empty()) {
+        opStack.pop();
+      }
     }
     // push the current operator
 cout << "   pushed current op onto opStack: " << op << endl;
