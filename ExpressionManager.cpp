@@ -258,6 +258,7 @@ cout << " In process_operator" << endl;
   }
   else {
     // while the current operator precedence is less than or equal to the stack top precedence, pop stack onto postfix
+    cout << opStack.size();
     while(precedence(op) <= precedence(opStack.top())) {
 cout << "   pushed current opStack.top(): " << opStack.top() << endl;
       postfix += opStack.top() + " ";
