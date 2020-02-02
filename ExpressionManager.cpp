@@ -302,6 +302,7 @@ int ExpressionManager::precedence(string oper) {
 }
 
 bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
+  cout << "In process_operator" << endl;
   if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
     opStack.push(op);
     cout << "pushed current op: " << op << endl;
@@ -326,11 +327,11 @@ bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix
   }
   else {
     while(precedence(op) <= precedence(opStack.top())) {
+    cout << "pushed current op: " << op << endl;
       postfix += opStack.top() + " ";
       opStack.pop();
     }
-    postfix += opStack.top();
-    opStack.pop();
+    postfix += op + " ";
     return true;
   }
 }
