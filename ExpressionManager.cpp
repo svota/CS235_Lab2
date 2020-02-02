@@ -308,6 +308,7 @@ bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix
     while(!isPair(opStack.top(), op)) {
       cout << "top of stack: " << opStack.top() << endl;
       postfix += opStack.top() + " ";
+      cout << "Current postfix: \"" << postfix << "\"" << endl;
       opStack.pop();
       if(opStack.empty()) {
   cout << "empty stack too early" << endl;
