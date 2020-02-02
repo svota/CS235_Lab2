@@ -303,27 +303,36 @@ int ExpressionManager::precedence(string oper) {
 
 bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
   cout << "In process_operator" << endl;
+  // if the operator stack is empty OR the top stack is an opening parenthesis OR the current operator is an opening parenthesis 
+  // Push the current operator onto the stack
+  // return true
   if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
     opStack.push(op);
     cout << "pushed current op: " << op << endl;
-      cout << "Current postfix: \"" << postfix << "\"" << endl;
     return true;
   }
+  // else if the current operator is a closing parenthesis
   else if(isRightParen(op)) {
+    // while the top of the operator stack is not a matching opening parenthesis
     while(!isPair(opStack.top(), op)) {
+      // pop off the top of the stack and append it to postfix (with a space after)
       cout << "top of stack: " << opStack.top() << endl;
       postfix += opStack.top() + " ";
       cout << "Current postfix: \"" << postfix << "\"" << endl;
       opStack.pop();
+      // if operator stack becomes empty without finding a matching parenthesis, return false
       if(opStack.empty()) {
   cout << "empty stack too early" << endl;
         return false;
       }
     }
-    opStack.pop();
-    cout << "Pair found." << endl;
-      cout << "Current postfix: \"" << postfix << "\"" << endl;
-    return true;
+    // pop off the matching opening parenthesis
+    if(isPair(opStack.top(), op)) {
+      opStack.pop();
+      cout << "Pair found." << endl;
+        cout << "Current postfix: \"" << postfix << "\"" << endl;
+      return true;
+    }
   }
   else {
     while(precedence(op) <= precedence(opStack.top())) {
