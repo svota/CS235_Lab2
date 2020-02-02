@@ -176,6 +176,8 @@ string ExpressionManager::infixToPostfix(string infixExpression) {
     if(isInt(*itr)) {
       postfix += *itr;
       postfix += " ";
+      cout << "Added Int" << endl;
+      cout << "Current postfix: " << postfix << endl;
     }
     else if(isOperator(*itr)) {
       if(!process_operator(operators, postfix, *itr)) {
@@ -302,6 +304,8 @@ int ExpressionManager::precedence(string oper) {
 bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
   if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
     opStack.push(op);
+    cout << "pushed current op: " << op << endl;
+      cout << "Current postfix: \"" << postfix << "\"" << endl;
     return true;
   }
   else if(isRightParen(op)) {
@@ -316,6 +320,8 @@ bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix
       }
     }
     opStack.pop();
+    cout << "Pair found." << endl;
+      cout << "Current postfix: \"" << postfix << "\"" << endl;
     return true;
   }
   else {
