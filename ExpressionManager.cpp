@@ -117,13 +117,10 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       ss.str(tokens.at(i));
       ss >> nextInt;
       expression.push(nextInt);
-      cout << "Pushing " << nextInt << endl;
     }
     else if(isOperator(tokens.at(i))) {
       if(expression.size() < 2) {
-        cout << "Error: not enough operands on token " << tokens.at(i) << endl;
         while(!expression.empty()) {
-          cout << "Current stack top: " << expression.top() << endl;
           expression.pop();
         }
         return "invalid";
@@ -136,12 +133,9 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
       if(nextInt == NULL) {
         return "invalid";
       }
-      cout << "Performing calculation: " << left << tokens.at(i) << right << endl;
       expression.push(nextInt);
-      cout << "Pushing calculated int: " << nextInt << endl;
     }
     else {
-      cout << "Error: not int or operator - " << tokens.at(i) << endl;
       return "invalid";
     }
   }
@@ -152,7 +146,6 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
     return returnStr;   
   }
   else {
-    cout << "Error: not enough operators" << endl;
     return "invalid";
   }
 }
@@ -186,19 +179,19 @@ string ExpressionManager::infixToPostfix(string infixExpression) {
     }
     else if(isOperator(*itr)) {
       if(!process_operator(operators, postfix, *itr)) {
-        return "invalid";
     cout << "Error process_operator failed" << endl;
+        return "invalid";
       }
     }
     else {
-      return "invalid";
     cout << "Error invalid token" << endl;
+      return "invalid";
     }
   }
   postfix.pop_back();
   if(postfixEvaluate(postfix) == "invalid") {
-    return "invalid";
     cout << "Error invalid final expression" << endl;
+    return "invalid";
   }
   return postfix;
 }
