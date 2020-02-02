@@ -60,7 +60,7 @@ bool ExpressionManager::isBalanced(string expression) {
 * otherwise, return the correct infix expression as a string.
 */
 string ExpressionManager::postfixToInfix(string postfixExpression) {
-  cout << "PostfixToInfix " << postfixExpression << endl;
+cout << "PostfixToInfix " << postfixExpression << endl;
   stack<string> expression;
   vector<string> tokens;
   tokens = parseTokens(postfixExpression);
@@ -102,7 +102,7 @@ string ExpressionManager::postfixToInfix(string postfixExpression) {
 * otherwise, return the correct evaluation as a string
 */
 string ExpressionManager::postfixEvaluate(string postfixExpression) {
-  cout << "PostfixEvaluate " << postfixExpression << endl;
+cout << "PostfixEvaluate " << postfixExpression << endl;
   int nextInt;
   int right;
   int left;
@@ -162,39 +162,58 @@ string ExpressionManager::postfixEvaluate(string postfixExpression) {
 * otherwise, return the correct postfix expression as a string.
 */
 string ExpressionManager::infixToPostfix(string infixExpression) {
-  cout << "InfixToPostFix " << infixExpression << endl;
+cout << "InfixToPostFix " << infixExpression << endl;
+  // Initialize postfix to an empty string
   string postfix;
+  // Initialize the operator stack to an empty stack.
   stack<string> operators;
+  // Split the postfix expression into a vector<string> of tokens
   vector<string> tokens = parseTokens(infixExpression);
 
   if(!isBalanced(infixExpression)) {
-    cout << "Error expression not balanced" << endl;
+cout << "Error expression not balanced" << endl;
     return "invalid";
   }
 
+  // For each token in the list of tokens
   for(vector<string>::iterator itr = tokens.begin(); itr != tokens.end(); ++itr) {
+    // if the next token is an operand (if it is a digit)
     if(isInt(*itr)) {
-      postfix += *itr;
-      postfix += " ";
-      cout << "Added Int" << endl;
-      cout << "Current postfix: " << postfix << endl;
+      // Append it to postfix (with a space following)
+      postfix += *itr + " ";
+cout << "added int " << *itr << endl;
+cout << "current postfix: " << postfix << endl;
     }
+    // else if the next token is an operator
     else if(isOperator(*itr)) {
+      // Call process_operator() to process the operator
       if(!process_operator(operators, postfix, *itr)) {
-    cout << "Error process_operator failed" << endl;
+        // If process_operator returns false, then indicate a syntax error
+cout << "Error process_operator failed" << endl;
         return "invalid";
       }
     }
     else {
-    cout << "Error invalid token" << endl;
+cout << "Error invalid token" << endl;
+      // Indicate a syntax error
       return "invalid";
     }
   }
+  // Pop remaining operators off the operator stack and append them to postfix 
+  while(!operators.empty()) {
+    postfix += operators.top() + " ";
+cout << "added operator " << operators.top() << endl;
+cout << "current postfix: " << postfix << endl;
+    operators.pop();
+  }
+  // (with a space following each except for the last)
   postfix.pop_back();
+  // To test if the resulting postfix is valid, you can call your postfixEvaluate function to see if you get a valid result
   if(postfixEvaluate(postfix) == "invalid") {
-    cout << "Error invalid final expression" << endl;
+cout << "Error invalid final expression" << endl;
     return "invalid";
   }
+  // If the result is valid, return postfix
   return postfix;
 }
 
@@ -302,13 +321,13 @@ int ExpressionManager::precedence(string oper) {
 }
 
 bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
-  cout << "In process_operator" << endl;
+cout << "In process_operator" << endl;
   // if the operator stack is empty OR the top stack is an opening parenthesis OR the current operator is an opening parenthesis 
   // Push the current operator onto the stack
   // return true
   if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
     opStack.push(op);
-    cout << "pushed current op: " << op << endl;
+cout << "pushed current op: " << op << endl;
     return true;
   }
   // else if the current operator is a closing parenthesis
@@ -316,32 +335,36 @@ bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix
     // while the top of the operator stack is not a matching opening parenthesis
     while(!isPair(opStack.top(), op)) {
       // pop off the top of the stack and append it to postfix (with a space after)
-      cout << "top of stack: " << opStack.top() << endl;
+cout << "top of stack: " << opStack.top() << endl;
       postfix += opStack.top() + " ";
-      cout << "Current postfix: \"" << postfix << "\"" << endl;
+cout << "Current postfix: \"" << postfix << "\"" << endl;
       opStack.pop();
       // if operator stack becomes empty without finding a matching parenthesis, return false
       if(opStack.empty()) {
-  cout << "empty stack too early" << endl;
+cout << "empty stack too early" << endl;
         return false;
       }
     }
     // pop off the matching opening parenthesis
     if(isPair(opStack.top(), op)) {
       opStack.pop();
-      cout << "Pair found." << endl;
-        cout << "Current postfix: \"" << postfix << "\"" << endl;
+cout << "Pair found." << endl;
+cout << "Current postfix: \"" << postfix << "\"" << endl;
+      // return true
       return true;
     }
   }
   else {
+    // while the current operator precedence is less than or equal to the stack top precedence, pop stack onto postfix
     while(precedence(op) <= precedence(opStack.top())) {
-    cout << "pushed current opStack.top(): " << opStack.top() << endl;
+cout << "pushed current opStack.top(): " << opStack.top() << endl;
       postfix += opStack.top() + " ";
       opStack.pop();
     }
-    cout << "pushed current op: " << op << endl;
+    // push the current operator
+cout << "pushed current op: " << op << endl;
     postfix += op + " ";
+    // return true
     return true;
   }
 }
