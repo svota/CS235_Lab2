@@ -151,15 +151,13 @@ cout << "PostfixEvaluate " << postfixExpression << endl;
 }
 
 /*
-* Converts an infix expression into a postfix expression
-* and returns the postfix expression
-*
-* - The given infix expression will have a space between every number or operator.
-* - The returned postfix expression must have a space between every number or operator.
-* - Check lab requirements for what will be considered invalid.
-*
-* return the string "invalid" if infixExpression is not a valid infix expression.
-* otherwise, return the correct postfix expression as a string.
+  Converts an infix expression into a postfix expression
+  and returns the postfix expression
+  - The given infix expression will have a space between every number or operator.
+  - The returned postfix expression must have a space between every number or operator.
+  - Check lab requirements for what will be considered invalid.
+  return the string "invalid" if infixExpression is not a valid infix expression.
+  otherwise, return the correct postfix expression as a string.
 */
 string ExpressionManager::infixToPostfix(string infixExpression) {
 cout << "InfixToPostFix " << infixExpression << endl;
@@ -171,7 +169,7 @@ cout << "InfixToPostFix " << infixExpression << endl;
   vector<string> tokens = parseTokens(infixExpression);
 
   if(!isBalanced(infixExpression)) {
-cout << "Error expression not balanced" << endl;
+cout << "Error: expression not balanced" << endl;
     return "invalid";
   }
 
@@ -215,6 +213,56 @@ cout << " Error invalid final expression" << endl;
   }
   // If the result is valid, return postfix
   return postfix;
+}
+
+
+bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
+cout << " In process_operator" << endl;
+  // if the operator stack is empty OR the top stack is an opening parenthesis OR the current operator is an opening parenthesis 
+  // Push the current operator onto the stack
+  // return true
+  if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
+    opStack.push(op);
+    cout << "   pushed current op: " << op << endl;
+    return true;
+  }
+  // else if the current operator is a closing parenthesis
+  else if(isRightParen(op)) {
+    // while the top of the operator stack is not a matching opening parenthesis
+    while(!isPair(opStack.top(), op)) {
+      // pop off the top of the stack and append it to postfix (with a space after)
+      cout << "   top of stack: " << opStack.top() << endl;
+      postfix += opStack.top() + " ";
+      cout << "   Current postfix: \"" << postfix << "\"" << endl;
+      opStack.pop();
+      // if operator stack becomes empty without finding a matching parenthesis, return false
+      if(opStack.empty()) {
+        cout << "   empty stack too early" << endl;
+        return false;
+      }
+    }
+    // pop off the matching opening parenthesis
+    if(isPair(opStack.top(), op)) {
+      opStack.pop();
+      cout << "   Pair found." << endl;
+      cout << "   Current postfix: \"" << postfix << "\"" << endl;
+      // return true
+      return true;
+    }
+  }
+  else {
+    // while the current operator precedence is less than or equal to the stack top precedence, pop stack onto postfix
+    while(precedence(op) <= precedence(opStack.top())) {
+cout << "   pushed current opStack.top(): " << opStack.top() << endl;
+      postfix += opStack.top() + " ";
+      opStack.pop();
+    }
+    // push the current operator
+cout << "   pushed current op onto opStack: " << op << endl;
+    opStack.push(op);
+    // return true
+    return true;
+  }
 }
 
 vector<string> ExpressionManager::parseTokens(string expression)
@@ -317,54 +365,5 @@ int ExpressionManager::precedence(string oper) {
   }
   else {
     return -1;
-  }
-}
-
-bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix, string &op) {
-cout << " In process_operator" << endl;
-  // if the operator stack is empty OR the top stack is an opening parenthesis OR the current operator is an opening parenthesis 
-  // Push the current operator onto the stack
-  // return true
-  if(opStack.empty() || isLeftParen(opStack.top()) || isLeftParen(op)) {
-    opStack.push(op);
-cout << "   pushed current op: " << op << endl;
-    return true;
-  }
-  // else if the current operator is a closing parenthesis
-  else if(isRightParen(op)) {
-    // while the top of the operator stack is not a matching opening parenthesis
-    while(!isPair(opStack.top(), op)) {
-      // pop off the top of the stack and append it to postfix (with a space after)
-cout << "   top of stack: " << opStack.top() << endl;
-      postfix += opStack.top() + " ";
-cout << "   Current postfix: \"" << postfix << "\"" << endl;
-      opStack.pop();
-      // if operator stack becomes empty without finding a matching parenthesis, return false
-      if(opStack.empty()) {
-cout << "   empty stack too early" << endl;
-        return false;
-      }
-    }
-    // pop off the matching opening parenthesis
-    if(isPair(opStack.top(), op)) {
-      opStack.pop();
-cout << "   Pair found." << endl;
-cout << "   Current postfix: \"" << postfix << "\"" << endl;
-      // return true
-      return true;
-    }
-  }
-  else {
-    // while the current operator precedence is less than or equal to the stack top precedence, pop stack onto postfix
-    while(precedence(op) <= precedence(opStack.top())) {
-cout << "   pushed current opStack.top(): " << opStack.top() << endl;
-      postfix += opStack.top() + " ";
-      opStack.pop();
-    }
-    // push the current operator
-cout << "   pushed current op: " << op << endl;
-    postfix += op + " ";
-    // return true
-    return true;
   }
 }
