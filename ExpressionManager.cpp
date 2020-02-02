@@ -327,10 +327,11 @@ bool ExpressionManager::process_operator(stack<string> &opStack, string &postfix
   }
   else {
     while(precedence(op) <= precedence(opStack.top())) {
-    cout << "pushed current op: " << op << endl;
+    cout << "pushed current opStack.top(): " << opStack.top() << endl;
       postfix += opStack.top() + " ";
       opStack.pop();
     }
+    cout << "pushed current op: " << op << endl;
     postfix += op + " ";
     return true;
   }
