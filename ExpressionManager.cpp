@@ -200,7 +200,7 @@ cout << " Error invalid token" << endl;
   // Pop remaining operators off the operator stack and append them to postfix 
   while(!operators.empty()) {
     postfix += operators.top() + " ";
-cout << " added operator " << operators.top() << endl;
+  cout << " added operator " << operators.top() << endl;
 cout << " current postfix: " << postfix << endl;
     if(!operators.empty()) {
       operators.pop();
